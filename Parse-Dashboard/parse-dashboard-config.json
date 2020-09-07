@@ -1,10 +1,14 @@
 {
-  "apps": [{
-    "serverURL": "",
-    "appId": "",
-    "masterKey": "",
-    "appName": "",
-    "iconName": ""
-  }],
+  "apps": [
+    {
+      "serverURL": "http://localhost:1338/parse",
+      "appId": "hello",
+      "masterKey": "world",
+      "appName": "",
+      "iconName": "",
+      "primaryBackgroundColor": "",
+      "secondaryBackgroundColor": ""
+    }
+  ],
   "iconsFolder": "icons"
 }

@@ -5,16 +5,16 @@
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
-import AppsManager     from 'lib/AppsManager';
 import Immutable       from 'immutable';
 import installDevTools from 'immutable-devtools';
-import Parse           from 'parse';
 import React           from 'react';
 import ReactDOM        from 'react-dom';
 import Dashboard       from './Dashboard';
-import 'babel-polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 require('stylesheets/fonts.scss');
+require('graphql-playground-react/build/static/css/index.css')
 installDevTools(Immutable);
 
 var path = window.PARSE_DASHBOARD_PATH || '/';

@@ -5,7 +5,6 @@
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
-import { centered }    from 'components/Field/Field.scss';
 import { Constraints } from 'lib/Filters';
 import DateTimeEntry   from 'components/DateTimeEntry/DateTimeEntry.react';
 import Dropdown        from 'components/Dropdown/Dropdown.react';
@@ -49,7 +48,11 @@ function compareValue(info, value, onChangeCompareTo) {
         }}
         ref={setFocus} />
     case 'Boolean':
-      return <Dropdown value={value ? 'True' : 'False'} options={['True', 'False']} onChange={(_value) => onChangeCompareTo(_value === 'True')} />;
+      return <Dropdown
+        value={value ? 'True' : 'False'}
+        onChange={(_value) => onChangeCompareTo(_value === 'True')} >
+          {['True', 'False'].map(value => <Option value={value} key={value}>{value}</Option>)}
+        </Dropdown>
     case 'Number':
       return <TextInput placeholder='value' className={styles.conditionValue} value={value} onChange={(_value) => onChangeCompareTo(validateNumeric(_value) ? Number(_value) : Number(value))} ref={setFocus}/>;
     case 'Date':
@@ -89,7 +92,6 @@ export default class InstallationCondition extends React.Component {
             placeHolder='field'
             className={styles.conditionDropdown}>
             {this.props.fields.map(function(object, i){
-              let id = `fieldOpt{i}`;
               return <Option value={object} key={`fieldOpt${i}`}>{object}</Option>;
             })}
           </Dropdown>

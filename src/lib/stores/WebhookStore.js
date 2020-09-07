@@ -5,7 +5,6 @@
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
-import { get, getHerokuAppName, post }     from 'lib/AJAX';
 import keyMirror         from 'lib/keyMirror';
 import Parse             from 'parse';
 import { Map, List }           from 'immutable';
@@ -34,9 +33,9 @@ function WebhookStore(state, action) {
         {},
         { useMasterKey: true }
       );
-      return Parse.Promise.when(functionsPromise, triggersPromise).then((
-        functions,
-        triggers
+      return Promise.all([functionsPromise, triggersPromise]).then((
+        [functions,
+        triggers]
       ) => {
         return Map({ lastFetch: new Date(), webhooks: List(functions.concat(triggers))});
       });
@@ -97,7 +96,7 @@ function WebhookStore(state, action) {
         return Parse._request(
           'PUT',
           'hooks/functions/' + action.functionName,
-          { __op: "Delete" },
+          { __op: 'Delete' },
           { useMasterKey: true }
         ).then(() => {
           return state.set('webhooks', state.get('webhooks').filter(existingHook => existingHook.functionName != action.functionName));
@@ -106,7 +105,7 @@ function WebhookStore(state, action) {
         return Parse._request(
           'PUT',
           'hooks/triggers/' + action.triggerClass + '/' + action.triggerName,
-          { __op: "Delete" },
+          { __op: 'Delete' },
           { useMasterKey: true }
         ).then(() => {
           return state.set('webhooks', state.get('webhooks').filter(existingHook =>
